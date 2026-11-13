@@ -3,7 +3,7 @@ import { AzureOpenAI } from 'openai'
 import {
   Bot, User, Send, Settings, Trash2, Download,
   RefreshCw, ChevronDown, Sparkles, MessageSquare,
-  Clock, CheckCheck, AlertCircle, Zap, X
+  Clock, CheckCheck, AlertCircle, Zap
 } from 'lucide-react'
 import './ChatScreen.css'
 
@@ -95,7 +95,6 @@ export default function ChatScreen({ config, onReset }) {
   const [messages, setMessages] = useState([])
   const [input, setInput] = useState('')
   const [isStreaming, setIsStreaming] = useState(false)
-  const [showSettings, setShowSettings] = useState(false)
   const [showScrollBtn, setShowScrollBtn] = useState(false)
   const [charCount, setCharCount] = useState(0)
   const [connectionStatus, setConnectionStatus] = useState('connected')
@@ -103,7 +102,6 @@ export default function ChatScreen({ config, onReset }) {
   const messagesEndRef = useRef(null)
   const chatBodyRef = useRef(null)
   const inputRef = useRef(null)
-  const abortRef = useRef(null)
 
   const scrollToBottom = useCallback((smooth = true) => {
     messagesEndRef.current?.scrollIntoView({ behavior: smooth ? 'smooth' : 'auto' })
@@ -111,7 +109,7 @@ export default function ChatScreen({ config, onReset }) {
 
   useEffect(() => {
     scrollToBottom(false)
-  }, [messages])
+  }, [messages, scrollToBottom])
 
   useEffect(() => {
     const el = chatBodyRef.current
